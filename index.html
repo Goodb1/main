@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GUARD Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-white relative overflow-hidden">
+
+  <div class="logo">
+    <img src="images/dragon.png" alt="Dragon Icon" class="dragon-icon">
+    <span class="text-2xl font-bold text-white glow-underline no-underline">Kiocode</span>
+  </div>
+
+  <div class="glow glow-top-left"></div>
+  <div class="glow glow-bottom-right"></div>
+  <div class="glow glow-follow" id="glow-follow"></div>
+
+  <section class="min-h-screen w-full flex items-center justify-center px-4 relative z-10">
+    <div class="flex flex-col items-center space-y-8 w-full max-w-5xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-center">
+        <span class="text-white">Welcome to</span> <span class="glow-underline">GUARD</span>
+      </h1>
+      <div class="title-line"></div>
+      <p class="text-lg text-center text-gray-300 max-w-2xl">Designed to help you to take control over your servers security and to facilitate your managing experience.</p>
+
+      <div class="glass-tabbox w-full max-w-md p-3 rounded-xl flex justify-between space-x-3">
+        <button class="tab-button-small active" data-tab="Profile"><img src="images/profile.png" alt="Profile" class="tab-icon">Profile</button>
+        <button class="tab-button-small" data-tab="Servers"><img src="images/servers.png" alt="Servers" class="tab-icon">Settings</button>
+        <button class="tab-button-small" data-tab="Premium"><img src="images/premium.png" alt="Premium" class="tab-icon">Premium</button>
+      </div>
+
+      <div class="w-full relative tab-panels-container min-h-[500px]">
+
+        <div id="tab-Profile" class="tab-content active space-y-6">
+          <div class="glass-box fixed-box-height w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h2 class="text-2xl font-semibold">Roblox Accounts</h2>
+                <p class="text-sm text-gray-300">Manage your connected Roblox accounts</p>
+              </div>
+              <button class="animated-button px-4 py-2 text-sm">Link New</button>
+            </div>
+            <div class="bg-gray-800/50 p-4 rounded-lg flex justify-between items-center">
+              <div>
+                <p class="font-bold">Netsu_0741 <span class="text-xs bg-cyan-500 px-2 py-1 rounded ml-2">Default</span></p>
+              </div>
+              <span class="text-gray-400">@Netsu_07</span>
+            </div>
+          </div>
+
+          <div class="glass-box fixed-box-height w-full p-6">
+            <h2 class="text-2xl font-semibold mb-2">Linked Accounts</h2>
+            <p class="text-sm text-gray-300 mb-4">Manage your linked Roblox accounts across Discord servers</p>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm mb-1">Guild</label>
+                  <select class="w-full bg-gray-900 border border-gray-700 p-2 rounded-md text-white">
+                    <option>Select a Guild</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm mb-1">Account</label>
+                  <select class="w-full bg-gray-900 border border-gray-700 p-2 rounded-md text-white">
+                    <option>Select an Account</option>
+                  </select>
+                </div>
+                <div class="flex items-end">
+                  <button class="animated-button w-full py-2">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-Servers" class="tab-content space-y-6">
+          <div class="glass-box fixed-box-height w-full p-6">
+            <h2 class="text-2xl font-semibold mb-2">Server List</h2>
+            <p class="text-sm text-gray-300 mb-4">Your server list will appear here.</p>
+          </div>
+          <div class="glass-box fixed-box-height w-full p-6">
+            <h2 class="text-2xl font-semibold mb-2">Advanced Settings</h2>
+            <p class="text-sm text-gray-300 mb-4">More detailed configuration options.</p>
+          </div>
+        </div>
+
+        <div id="tab-Premium" class="tab-content space-y-6">
+          <div class="glass-box fixed-box-height w-full p-6">
+            <h2 class="text-2xl font-semibold mb-2">Premium Features</h2>
+            <p class="text-sm text-gray-300 mb-4">Enable and configure premium features here.</p>
+          </div>
+          <div class="glass-box fixed-box-height w-full p-6">
+            <h2 class="text-2xl font-semibold mb-2">Advanced Settings</h2>
+            <p class="text-sm text-gray-300 mb-4">More detailed configuration options.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const glow = document.getElementById("glow-follow");
+    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX - 300;
+      mouseY = e.clientY - 300;
+    });
+
+    function animateGlow() {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+      glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      requestAnimationFrame(animateGlow);
+    }
+
+    animateGlow();
+
+    const tabButtons = document.querySelectorAll(".tab-button-small");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const tab = button.getAttribute("data-tab");
+
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        tabContents.forEach(content => {
+          content.classList.remove("active");
+        });
+
+        const activeTab = document.getElementById(`tab-${tab}`);
+        activeTab.classList.add("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
